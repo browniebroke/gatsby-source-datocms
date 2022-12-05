@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         node-version: ["14.x", "16.x"]
         gatsby-version: ["^3.0.0", "^4.0.0"]
