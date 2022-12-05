@@ -1,6 +1,11 @@
 const { render } = require('datocms-structured-text-to-html-string');
 const buildQueryExecutor = require('./support/buildQueryExecutor');
 
+const gatsbyVersion = require('gatsby/package.json').version;
+const isGatsby3 = gatsbyVersion.version.split('.')[0] === '3';
+const testGatsby3 = isGatsby3 ? test : test.skip;
+const testNotGatsby3 = isGatsby3 ? test.skip : test;
+
 jest.setTimeout(60000);
 
 let executeQuery;
