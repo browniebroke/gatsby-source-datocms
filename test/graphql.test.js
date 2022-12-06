@@ -3,6 +3,7 @@ const buildQueryExecutor = require('./support/buildQueryExecutor');
 
 const testGatsby3 = process.env.GATSBY_VERSION === '3' ? test : test.skip;
 const testGatsby4 = process.env.GATSBY_VERSION === '4' ? test : test.skip;
+const testGatsby5 = process.env.GATSBY_VERSION === '5' ? test : test.skip;
 
 jest.setTimeout(60000);
 
@@ -134,13 +135,19 @@ describe('focalPoints', () => {
   `;
 
   testGatsby3('v3', async () => {
-    const result = await executeQuery();
+    const result = await executeQuery(query);
 
     expect(result).toMatchSnapshot();
   });
 
   testGatsby4('v4', async () => {
-    const result = await executeQuery();
+    const result = await executeQuery(query);
+
+    expect(result).toMatchSnapshot();
+  });
+
+  testGatsby5('v5', async () => {
+    const result = await executeQuery(query);
 
     expect(result).toMatchSnapshot();
   });
