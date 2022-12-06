@@ -1,6 +1,9 @@
 const { render } = require('datocms-structured-text-to-html-string');
 const buildQueryExecutor = require('./support/buildQueryExecutor');
 
+const testGatsby3 = process.env.GATSBY_VERSION === '3' ? test : test.skip;
+const testGatsby4 = process.env.GATSBY_VERSION === '4' ? test : test.skip;
+
 jest.setTimeout(60000);
 
 let executeQuery;
@@ -15,8 +18,8 @@ beforeAll(async () => {
   }
 });
 
-test('focalPoints', async () => {
-  const result = await executeQuery(/* GraphQL */ `
+describe('focalPoints', () => {
+  const query = /* GraphQL */ `
     {
       datoCmsArticle(originalId: { eq: "7364344" }) {
         singleAsset {
@@ -128,9 +131,19 @@ test('focalPoints', async () => {
         }
       }
     }
-  `);
+  `;
 
-  expect(result).toMatchSnapshot();
+  testGatsby3('v3', async () => {
+    const result = await executeQuery();
+
+    expect(result).toMatchSnapshot();
+  });
+
+  testGatsby4('v4', async () => {
+    const result = await executeQuery();
+
+    expect(result).toMatchSnapshot();
+  });
 });
 
 test('auto=format', async () => {
