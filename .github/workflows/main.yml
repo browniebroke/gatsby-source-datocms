@@ -37,3 +37,4 @@ jobs:
           yarn test
         env:
           CI: true
+          GATSBY_VERSION: ${{ matrix.gatsby-version }}
